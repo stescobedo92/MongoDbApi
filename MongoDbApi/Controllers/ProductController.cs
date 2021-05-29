@@ -12,9 +12,11 @@ namespace MongoDbApi.Controllers
     public class ProductController : Controller
     {
         private IProductCollection db = new ProductCollection();
-        public IActionResult Index()
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
         {
-            return View();
+            return Ok(await db.GetAllProducts());
         }
     }
 }
