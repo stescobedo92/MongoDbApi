@@ -18,5 +18,11 @@ namespace MongoDbApi.Controllers
         {
             return Ok(await db.GetAllProducts());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductDetails(string id)
+        {
+            return Ok(await db.GetProductById(id));
+        }
     }
 }
