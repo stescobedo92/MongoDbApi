@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDbApi.Models;
 using MongoDbApi.Repositories;
 
 namespace MongoDbApi.Controllers
@@ -23,6 +24,24 @@ namespace MongoDbApi.Controllers
         public async Task<IActionResult> GetProductDetails(string id)
         {
             return Ok(await db.GetProductById(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] Product product)
+        {
+            if(product == null)
+            {
+                return BadRequest();
+            }
+
+            if(product.Name == string.Empty)
+            {
+                ModelState.AddModelError("Name", "The product shouldn't be empty");
+            }
+
+            await db.InsertProduct(product);
+
+            return Created("Created", true);
         }
     }
 }
