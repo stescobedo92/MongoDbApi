@@ -43,5 +43,24 @@ namespace MongoDbApi.Controllers
 
             return Created("Created", true);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct([FromBody] Product product,string id)
+        {
+            if (product == null)
+            {
+                return BadRequest();
+            }
+
+            if (product.Name == string.Empty)
+            {
+                ModelState.AddModelError("Name", "The product shouldn't be empty");
+            }
+
+            product.Id = new MongoDB.Bson.ObjectId(id);
+            await db.UpdateProduct(product);
+
+            return Created("Created", true);
+        }
     }
 }
