@@ -62,5 +62,13 @@ namespace MongoDbApi.Controllers
 
             return Created("Created", true);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(string id)
+        {
+            await db.DeleteProduct(id);
+
+            return NoContent();
+        }
     }
 }
