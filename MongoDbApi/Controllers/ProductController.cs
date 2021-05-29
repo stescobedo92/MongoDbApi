@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MongoDbApi.Controllers
 {
+    [ApiController]
     public class ProductController : Controller
     {
         public IActionResult Index()
